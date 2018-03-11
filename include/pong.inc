@@ -242,12 +242,20 @@ public OnGameModeInit()
 {
 	Pong_Init(0);
 
+	#if defined PONG_OnGameModeInit
+	PONG_OnGameModeInit();
+	#endif
+
 	return 1;
 }
 
 public OnGameModeExit()
 {
 	Pong_Exit(0);
+
+	#if defined PONG_OnGameModeExit
+	PONG_OnGameModeExit();
+	#endif
 
 	return 1;
 }
@@ -256,12 +264,20 @@ public OnFilterScriptInit()
 {
 	Pong_Init(1);
 
+	#if defined PONG_OnFilterScriptInit
+	PONG_OnFilterScriptInit();
+	#endif
+
 	return 1;
 }
 
 public OnFilterScriptExit()
 {
 	Pong_Exit(1);
+
+	#if defined PONG_OnFilterScriptExit
+	PONG_OnFilterScriptExit();
+	#endif
 
 	return 1;
 }
@@ -272,14 +288,22 @@ public OnPlayerConnect(playerid)
 
 	PlayerPongInfo[playerid][ppgID] = -1;
 
+	#if defined PONG_OnPlayerConnect
+	PONG_OnPlayerConnect(playerid);
+	#endif
+
 	return 1;
 }
 
-public OnPlayerDisconnect(playerid)
+public OnPlayerDisconnect(playerid, reason)
 {
 	if(!PONG_Initialized) return 1;
 
 	EndPongGameForPlayer(playerid);
+
+	#if defined PONG_OnPlayerDisconnect
+	PONG_OnPlayerDisconnect(playerid, reason);
+	#endif
 
 	return 1;
 }
@@ -1095,7 +1119,7 @@ static stock PONG_IsAlive(playerid)
 #endif
 #define OnPlayerConnect PONG_OnPlayerConnect
 #if defined PONG_OnPlayerConnect
-	forward PONG_OnPlayerConnect();
+	forward PONG_OnPlayerConnect(playerid);
 #endif
 
 #if defined _ALS_OnPlayerDisconnect
@@ -1105,7 +1129,7 @@ static stock PONG_IsAlive(playerid)
 #endif
 #define OnPlayerDisconnect PONG_OnPlayerDisconnect
 #if defined PONG_OnPlayerDisconnect
-	forward PONG_OnPlayerDisconnect();
+	forward PONG_OnPlayerDisconnect(playerid, reason);
 #endif
 
 // ####################################################################################### // EOF
