@@ -43,3 +43,5 @@ Create TVs anywhere to play Pong versus another player.
 
 	SetPongGameSpeed(id, Float:speed)
 		Sets the Ball Speed Multiplier for a specific game
+
+https://imgur.com/a/MhhPt
