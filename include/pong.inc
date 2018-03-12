@@ -74,6 +74,14 @@
 	GetPongGameVirtualWorld(id)
 		Returns the Game's Virtual World, -1 if invalid
 
+
+	GetPongPlayers(id, playerid_a = 0, playerid_b = 0)
+		Gets the current players (optional) and returns the number of players in a pong game, -1 if invalid
+
+
+	GetPlayerPongID(playerid)
+		Returns the Player's Pong ID if in any game, -1 if not connected or not in a game
+
 */
 
 // ####################################################################################### // Defines (Limits/Config)
@@ -652,6 +660,33 @@ stock GetPongGameVirtualWorld(id)
 	if(!IsValidPongGame(id)) return -1;
 
 	return PongGames[id][pgVirtualWorld];
+}
+
+
+stock GetPongPlayers(id, playerid_a = 0, playerid_b = 0)
+{
+	playerid_a = -1;
+	playerid_b = -1;
+
+	if(!IsValidPongGame(id) || GetPongGameState(id) == PONG_STATE_NONE) return -1;
+
+	new num;
+
+	playerid_a = PongGames[id][pgPlayers][0];
+	playerid_b = PongGames[id][pgPlayers][1];
+
+	if(playerid_a != -1) num ++;
+	if(playerid_b != -1) num ++;
+
+	return num;
+}
+
+
+stock GetPlayerPongID(playerid)
+{
+	if(!IsPlayerConnected(playerid)) return -1;
+	
+	return PlayerPongInfo[playerid][ppgID];
 }
 
 // ####################################################################################### // Main Game Timer (Controls mainly)
