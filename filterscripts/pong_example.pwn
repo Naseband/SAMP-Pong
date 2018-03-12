@@ -234,7 +234,7 @@ CMD:pong_create(playerid, params[])
 	x += 1.7 * floatsin(-a, degrees);
 	y += 1.7 * floatcos(-a, degrees);
 
-	TMPPlayerObjectID[playerid] = CreatePlayerObject(playerid, PONG_MODEL, x, y, z, 0.0, 0.0, a + 180.0, 999.0);
+	TMPPlayerObjectID[playerid] = CreatePlayerObject(playerid, PONG_MODEL, x, y, z, 0.0, 0.0, a, 999.0);
 
 	if(IsValidPlayerObject(playerid, TMPPlayerObjectID[playerid])) EditPlayerObject(playerid, TMPPlayerObjectID[playerid]);
 	else TMPPlayerObjectID[playerid] = -1;
