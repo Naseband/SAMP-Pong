@@ -143,7 +143,7 @@ CMD:pong_join(playerid, params[])
 
 CMD:pong_start(playerid, params[])
 {
-	new id = PlayerPongInfo[playerid][ppgID];
+	new id = GetPlayerPongID(playerid);
 
 	if(!IsValidPongGame(id)) return SendClientMessage(playerid, -1, "You are in no Pong Game.");
 
@@ -156,7 +156,7 @@ CMD:pong_end(playerid, params[])
 {
 	if(!IsPlayerAdmin(playerid)) return 1;
 
-	new id = PlayerPongInfo[playerid][ppgID];
+	new id = GetPlayerPongID(playerid);
 
 	if(!IsValidPongGame(id)) id = GetPlayerPongArea(playerid);
 
@@ -169,8 +169,11 @@ CMD:pong_end(playerid, params[])
 
 CMD:pong_score(playerid, params[])
 {
-	new id = PlayerPongInfo[playerid][ppgID];
-	if(!IsValidPongGame(id) || PongGames[id][pgPlayers][0] != playerid) return SendClientMessage(playerid, -1, "You are not the Host of a Pong Game.");
+	new id = GetPlayerPongID(playerid), playerid_a;
+
+	GetPongPlayers(id, playerid_a);
+
+	if(!IsValidPongGame(id) || playerid_a != playerid) return SendClientMessage(playerid, -1, "You are not the Host of a Pong Game.");
 
 	if(isnull(params) || !strlen(params) || strlen(params) > 5) return SendClientMessage(playerid, -1, "Invalid Value.");
 
@@ -187,8 +190,11 @@ CMD:pong_score(playerid, params[])
 
 CMD:pong_rounds(playerid, params[])
 {
-	new id = PlayerPongInfo[playerid][ppgID];
-	if(!IsValidPongGame(id) || PongGames[id][pgPlayers][0] != playerid) return SendClientMessage(playerid, -1, "You are not the Host of a Pong Game.");
+	new id = GetPlayerPongID(playerid), playerid_a;
+
+	GetPongPlayers(id, playerid_a);
+
+	if(!IsValidPongGame(id) || playerid_a != playerid) return SendClientMessage(playerid, -1, "You are not the Host of a Pong Game.");
 
 	if(isnull(params) || !strlen(params) || strlen(params) > 5) return SendClientMessage(playerid, -1, "Invalid Value.");
 
@@ -205,8 +211,11 @@ CMD:pong_rounds(playerid, params[])
 
 CMD:pong_speed(playerid, params[])
 {
-	new id = PlayerPongInfo[playerid][ppgID];
-	if(!IsValidPongGame(id) || PongGames[id][pgPlayers][0] != playerid) return SendClientMessage(playerid, -1, "You are not the Host of a Pong Game.");
+	new id = GetPlayerPongID(playerid), playerid_a;
+
+	GetPongPlayers(id, playerid_a);
+	
+	if(!IsValidPongGame(id) || playerid_a != playerid) return SendClientMessage(playerid, -1, "You are not the Host of a Pong Game.");
 
 	if(isnull(params) || !strlen(params) || strlen(params) > 5) return SendClientMessage(playerid, -1, "Invalid Value.");
 
